@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>舆情检索</title>
+    <link rel="stylesheet" type="text/css" href="__STATIC__/index/css/admin1.css"/>
+    <link rel="stylesheet" type="text/css" href="__STATIC__/index/css/layui.css"/>
+    <link rel="stylesheet" type="text/css" href="__STATIC__/index/css/Yq.css"/>
+</head>
+<body>
+<!-- 左侧导航-beg -->
+{include file="public\_Left" /}
+<!-- 左侧导航-end -->
+<div class="row" style="height: 1100px">
+    <!-- 顶部导航-beg -->
+    {include file="public\_Menu" /}
+    <!-- 顶部导航-end -->
+    <div class="Div" style="height:350px;">
+        <div class="layui-col-md12">
+            <div class="layui-row" style="height:400px;">
+                <div style="margin-left: 20px;">
+                    <h3> 网络评分</h3>
+                </div>
+                <div class="layui-col-md3">
+                    <div>
+                        <h5 style="color: #721c24" align="center">IDC评分</h5>
+                        <div id="myChart_idc" style="height:300px;width:100%;"></div>
+                    </div>
+                </div>
+                <div class="layui-col-md3">
+                    <h5 style="color: #721c24" align="center">CDN评分</h5>
+                    <div id="myChart_cdn" style="height:300px;width:100%;"></div>
+                </div>
+                <div class="layui-col-md3">
+                    <h5 style="color: #721c24" align="center">ISP评分</h5>
+                    <div id="myChart_isp" style="height:300px;width:100%;"></div>
+                </div>
+                <div class="layui-col-md3">
+                    <h5 style="color: #721c24" align="center">DNS评分</h5>
+                    <div id="myChart_dns" style="height:300px;width:100%;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="Div" style="height:300px;">
+        <div class="layui-col-md12" >
+            <div class="layui-col-md6" >
+                <h3>IDC分布</h3>
+                <div id="myChart_inc_dis" style="height:500px;width:100%;"></div>
+            </div>
+            <div class="layui-col-md6">
+                <h3>CDN分布</h3>
+                <div id="myChart_cdn_dis" style="height:500px;width:100%;"></div>
+            </div>
+        </div>
+        <div class="layui-col-md12">
+            <table>
+
+            </table>
+        </div>
+    </div>
+    <!--表格1-->
+</div>
+<script type="text/javascript" src="__STATIC__/index/js/jquery-3.3.1.js"></script>
+
+<script src="__STATIC__/index/js/layui1.js" type="text/javascript" charset="utf-8"></script>
+<!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
+<script src="__STATIC__/index/js/echarts.js"></script>
+<script src="__STATIC__/index/js/china.js"></script>
+</body>
+<script>
+    var myChart_idc = echarts.init(document.getElementById("myChart_idc"), 'walden');
+    var option_idc = {
+        tooltip: {
+            trigger: 'item',
+            formatter: "{a} <br/>{b}: {c} ({d}%)",
+
+        },
+        legend: {
+            orient: 'vertical',
+            x: 'left',
+            data:['得分','扣分']
+        },
+        series: [
+            {
+                name:'分数',
+                type:'pie',
+                radius: ['50%', '70%'],
+                avoidLabelOverlap: false,
+                label: {
+                    normal: {
+                        show: false,
+                        position: 'center'
+                    },
+                    emphasis: {
+                        show: true,
+                        textStyle: {
+                            fontSize: '30',
+                            fontWeight: 'bold'
+                        }
+                    }
+                },
+                labelLine: {
+                    normal: {
+                        show: false
+                    }
+                },
+                data:[
+                    {value:92, name:'得分92'},
+                    {value:8, name:'扣分8'},
+                ]
+            }
+        ]
+    };
+    myChart_idc.setOption(option_idc);
+    var myChart_cdn = echarts.init(document.getElementById("myChart_cdn"), 'walden');
+    var option_cdn = {
+        tooltip: {
+            trigger: 'item',
+            formatter: "{a} <br/>{b}: {c} ({d}%)"
+        },
+        legend: {
+            orient: 'vertical',
+            x: 'left',
+            data:['得分','扣分']
+        },
+        series: [
+            {
+                name:'分数',
+                type:'pie',
+                radius: ['50%', '70%'],
+                avoidLabelOverlap: false,
+                label: {
+                    normal: {
+                        show: false,
+                        position: 'center'
+                    },
+                    emphasis: {
+                        show: true,
+                        textStyle: {
+                            fontSize: '30',
+                            fontWeight: 'bold'
+                        }
+                    }
+                },
+                labelLine: {
+                    normal: {
+                        show: false
+                    }
+                },
+                data:[
+                    {value:95, name:'得分95'},
+                    {value:5, name:'扣分5'},
+
+                ]
+            }
+        ]
+    };
+    myChart_cdn.setOption(option_cdn);
+    var myChart_isp = echarts.init(document.getElementById("myChart_isp"), 'walden');
+    var option_isp = {
+        tooltip: {
+            trigger: 'item',
+            formatter: "{a} <br/>{b}: {c} ({d}%)"
+        },
+        legend: {
+            orient: 'vertical',
+            x: 'left',
+            data:['得分','扣分']
+        },
+        series: [
+            {
+                name:'分数',
+                type:'pie',
+                radius: ['50%', '70%'],
+                avoidLabelOverlap: false,
+                label: {
+                    normal: {
+                        show: false,
+                        position: 'center'
+                    },
+                    emphasis: {
+                        show: true,
+                        textStyle: {
+                            fontSize: '30',
+                            fontWeight: 'bold'
+                        }
+                    }
+                },
+                labelLine: {
+                    normal: {
+                        show: false
+                    }
+                },
+                data:[
+                    {value:85, name:'得分85'},
+                    {value:15, name:'扣分15'},
+
+                ]
+            }
+        ]
+    };
+    myChart_isp.setOption(option_isp);
+    var myChart_dns = echarts.init(document.getElementById("myChart_dns"), 'walden');
+    var option_dns = {
+        tooltip: {
+            trigger: 'item',
+            formatter: "{a} <br/>{b}: {c} ({d}%)"
+        },
+        legend: {
+            orient: 'vertical',
+            x: 'left',
+            data:['得分','扣分']
+        },
+        series: [
+            {
+                name:'分数',
+                type:'pie',
+                radius: ['50%', '70%'],
+                avoidLabelOverlap: false,
+                label: {
+                    normal: {
+                        show: false,
+                        position: 'center'
+                    },
+                    emphasis: {
+                        show: true,
+                        textStyle: {
+                            fontSize: '30',
+                            fontWeight: 'bold'
+                        }
+                    }
+                },
+                labelLine: {
+                    normal: {
+                        show: false
+                    }
+                },
+                data:[
+                    {value:60, name:'得分60'},
+                    {value:40, name:'扣分40'},
+
+                ]
+            }
+        ]
+    };
+    myChart_dns.setOption(option_dns);
+</script>
+<!--idc_dis-->
+<script>
+    function randomData() {
+        return Math.round(Math.random()*500);
+    }
+    var mydata = [
+        {name: '北京',value: '100' },{name: '天津',value: randomData() },
+        {name: '上海',value: randomData() },{name: '重庆',value: randomData() },
+        {name: '河北',value: randomData() },{name: '河南',value: randomData() },
+        {name: '云南',value: randomData() },{name: '辽宁',value: randomData() },
+        {name: '黑龙江',value: randomData() },{name: '湖南',value: randomData() },
+        {name: '安徽',value: randomData() },{name: '山东',value: randomData() },
+        {name: '新疆',value: randomData() },{name: '江苏',value: randomData() },
+        {name: '浙江',value: randomData() },{name: '江西',value: randomData() },
+        {name: '湖北',value: randomData() },{name: '广西',value: randomData() },
+        {name: '甘肃',value: randomData() },{name: '山西',value: randomData() },
+        {name: '内蒙古',value: randomData() },{name: '陕西',value: randomData() },
+        {name: '吉林',value: randomData() },{name: '福建',value: randomData() },
+        {name: '贵州',value: randomData() },{name: '广东',value: randomData() },
+        {name: '青海',value: randomData() },{name: '西藏',value: randomData() },
+        {name: '四川',value: randomData() },{name: '宁夏',value: randomData() },
+        {name: '海南',value: randomData() },{name: '台湾',value: randomData() },
+        {name: '香港',value: randomData() },{name: '澳门',value: randomData() }
+    ];
+    var option_inc_dis = {
+        backgroundColor: '#FFFFFF',
+        title: {
+            text: '',
+            subtext: '',
+            x:'center'
+        },
+        tooltip : {
+            trigger: 'item'
+        },
+
+        //左侧小导航图标
+        visualMap: {
+            show : true,
+            x: 'left',
+            y: 'center',
+            splitList: [
+                {start: 500, end:600},{start: 400, end: 500},
+                {start: 300, end: 400},{start: 200, end: 300},
+                {start: 100, end: 200},{start: 0, end: 100},
+            ],
+            color: ['#5475f5', '#9feaa5', '#85daef','#74e2ca', '#e6ac53', '#9fb5ea']
+        },
+
+        //配置属性
+        series: [{
+            name: '数据',
+            type: 'map',
+            mapType: 'china',
+            roam: true,
+            label: {
+                normal: {
+                    show: true  //省份名称
+                },
+                emphasis: {
+                    show: false
+                }
+            },
+            data:mydata  //数据
+        }]
+    };
+    var myChart_inc_dis = echarts.init(document.getElementById("myChart_inc_dis"), 'walden');
+
+    myChart_inc_dis.setOption(option_inc_dis);
+</script>
+<!--cdn_dis-->
+<script>
+    function randomData() {
+        return Math.round(Math.random()*500);
+    }
+    var mydata = [
+        {name: '北京',value: '100' },{name: '天津',value: randomData() },
+        {name: '上海',value: randomData() },{name: '重庆',value: randomData() },
+        {name: '河北',value: randomData() },{name: '河南',value: randomData() },
+        {name: '云南',value: randomData() },{name: '辽宁',value: randomData() },
+        {name: '黑龙江',value: randomData() },{name: '湖南',value: randomData() },
+        {name: '安徽',value: randomData() },{name: '山东',value: randomData() },
+        {name: '新疆',value: randomData() },{name: '江苏',value: randomData() },
+        {name: '浙江',value: randomData() },{name: '江西',value: randomData() },
+        {name: '湖北',value: randomData() },{name: '广西',value: randomData() },
+        {name: '甘肃',value: randomData() },{name: '山西',value: randomData() },
+        {name: '内蒙古',value: randomData() },{name: '陕西',value: randomData() },
+        {name: '吉林',value: randomData() },{name: '福建',value: randomData() },
+        {name: '贵州',value: randomData() },{name: '广东',value: randomData() },
+        {name: '青海',value: randomData() },{name: '西藏',value: randomData() },
+        {name: '四川',value: randomData() },{name: '宁夏',value: randomData() },
+        {name: '海南',value: randomData() },{name: '台湾',value: randomData() },
+        {name: '香港',value: randomData() },{name: '澳门',value: randomData() }
+    ];
+    var option_cdn_dis = {
+        backgroundColor: '#FFFFFF',
+        title: {
+            text: '',
+            subtext: '',
+            x:'center'
+        },
+        tooltip : {
+            trigger: 'item'
+        },
+
+        //左侧小导航图标
+        visualMap: {
+            show : true,
+            x: 'left',
+            y: 'center',
+            splitList: [
+                {start: 500, end:600},{start: 400, end: 500},
+                {start: 300, end: 400},{start: 200, end: 300},
+                {start: 100, end: 200},{start: 0, end: 100},
+            ],
+            color: ['#5475f5', '#9feaa5', '#85daef','#74e2ca', '#e6ac53', '#9fb5ea']
+        },
+
+        //配置属性
+        series: [{
+            name: '数据',
+            type: 'map',
+            mapType: 'china',
+            roam: true,
+            label: {
+                normal: {
+                    show: true  //省份名称
+                },
+                emphasis: {
+                    show: false
+                }
+            },
+            data:mydata  //数据
+        }]
+    };
+    var myChart_cdn_dis = echarts.init(document.getElementById("myChart_cdn_dis"), 'walden');
+
+    myChart_cdn_dis.setOption(option_cdn_dis);
+</script>
+<script type="text/javascript" src="__STATIC__/index/js/jquery-3.3.1.js"></script>
+<script src="__STATIC__/index/js/layui1.js" type="text/javascript" charset="utf-8"></script>
+<!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
+<script src="__STATIC__/index/js/echarts.js"></script>
+<script src="__STATIC__/index/js/china.js"></script>
+</html>
